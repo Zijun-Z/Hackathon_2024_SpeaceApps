@@ -1,5 +1,6 @@
 import random
 from classes import *
+from newspaper_text import *
 
 game = Game()
 pollution_level = 0
@@ -12,6 +13,7 @@ play_game = True
 while play_game:
     if not player.is_alive():
         game.game_over()
+        break
 
     """ POLLUTION (CAN BE AT THE END) """
     if game.pollution > 30: pollution_level = Pollution.HIGH
@@ -32,6 +34,16 @@ while play_game:
     print(player.illnesses)
 
     """ NEWSPAPER """
+    """
+    pollution_level
+    pollution_increase (pollution rate)
+    did player attend protest last round?
+    pollution_increase
+    is government now aware?
+    
+    """
+
+
     print("newspaper stuff")
 
     """ PLAYER DECISION """
@@ -50,6 +62,10 @@ while play_game:
     if game.government_is_aware:
         pollution_increase -= 1
         game.government_is_aware = False
+
+    if pollution_increase == 0:
+        print("you win bozo")
+        break
 
     game.pollution += pollution_increase
 

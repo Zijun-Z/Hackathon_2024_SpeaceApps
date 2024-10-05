@@ -9,7 +9,7 @@ class Game:
         self.government_is_aware = False
 
     def game_over(self):
-        return
+        print("you died nerd")
 
 
 class Player:
@@ -44,7 +44,7 @@ class Player:
 
     def goes_to_hospital(self):
         self.in_hospital = True
-        self.health += 30
+        self.health += 60
         self.money -= 2 * self.wage
 
         remove = set()
