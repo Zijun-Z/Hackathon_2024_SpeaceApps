@@ -5,8 +5,8 @@ class Game:
     def __init__(self, start_date="2024-01-01"):
         self.date = start_date
 
-        self.pollution = 0            # FROM 0 TO 10
-        self.government_sensitivity = 0     # FROM 0 TO 10
+        self.pollution = 0                  # FROM 0 TO 10
+        self.government_is_aware = False
 
     def game_over(self):
         return
@@ -69,5 +69,12 @@ class Illness(Enum):
     CANCER = 6
     STROKE = 7
     PNEUMONIA = 8
+
+
+class Pollution(Enum):
+    NONE = 0
+    LOW = 1
+    MEDIUM = 2
+    HIGH = 3
 
 
