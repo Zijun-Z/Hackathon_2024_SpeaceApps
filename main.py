@@ -14,30 +14,28 @@ while play_game:
         game.game_over()
 
     """ POLLUTION (CAN BE AT THE END) """
-    if game.pollution > 7: pollution_level = Pollution.HIGH
-    elif game.pollution > 4: pollution_level = Pollution.MEDIUM
-    elif game.pollution > 1: pollution_level = Pollution.LOW
+    if game.pollution > 30: pollution_level = Pollution.HIGH
+    elif game.pollution > 20: pollution_level = Pollution.MEDIUM
+    elif game.pollution > 10: pollution_level = Pollution.LOW
     else: pollution_level = Pollution.NONE
 
     """ ILLNESSES """
-    if pollution_level == Pollution.HIGH:
-        illness = random.choice([Illness.CANCER, Illness.PNEUMONIA, Illness.STROKE])
-    elif pollution_level == Pollution.MEDIUM:
-        illness = random.choice([Illness.ASTHMA, Illness.CARDIOVASCULAR_DISEASE])
-    elif pollution_level == Pollution.LOW:
-        illness = random.choice([Illness.IRRITATION, Illness.HEADACHES, Illness.BREATHING_PROBLEMS])
-    else:
-        illness = None
+    if pollution_level == Pollution.HIGH: illness = random.choice([Illness.CANCER, Illness.PNEUMONIA, Illness.STROKE])
+    elif pollution_level == Pollution.MEDIUM: illness = random.choice([Illness.ASTHMA, Illness.CARDIOVASCULAR_DISEASE])
+    elif pollution_level == Pollution.LOW: illness = random.choice([Illness.IRRITATION, Illness.HEADACHES, Illness.BREATHING_PROBLEMS])
+    else: illness = None
 
     if illness:
         player.illnesses.add(illness)
 
     player.apply_illness_affects()
+    print(player.illnesses)
 
     """ NEWSPAPER """
+    print("newspaper stuff")
 
     """ PLAYER DECISION """
-    decision = int(input("DECIDE (1) WORK, (2) PROTEST, (3) STAY HOME, (4) GO TO HOSPITAL"))
+    decision = int(input("DECIDE:  (1) WORK, (2) PROTEST, (3) STAY HOME, (4) GO TO HOSPITAL"))
 
     if decision == 1: player.goes_to_work()
     elif decision == 2: player.goes_to_protest()
@@ -55,5 +53,11 @@ while play_game:
 
     game.pollution += pollution_increase
 
+    if not player.in_hospital:
+        player.money -= player.cost_of_living
+
+    print(f"health: {player.health}, money: {player.money}, pollution: {pollution_level}, "
+          f"protests attended: {player.protests_attended}, pollution increase: {pollution_increase}")
+    print("-----------------------------")
 
 
