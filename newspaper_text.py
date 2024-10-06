@@ -5,12 +5,14 @@ good_news_options = [
     "Local environmentalists promote composting system, reducing local waste!",
     "Local volunteers plant over 100 trees, improving local green space and air quality.",
 
-    "Protest leader saves local child from an attempted kidnapping. No one can speak out about your protests without looking like the bad guy.",
+    "Protest leader saves local child from an attempted kidnapping. \n"
+    "No one can speak out about your protests without looking like the bad guy.\n",
     "A famous actor has seen local protests, and is impressed with the protesters dedication!",
 ]
 
 bad_news_options = [
-    "Violent outbursts begin at local protests leading to hundreds being jailed. Locals lament lack of aid in stopping the fight.",
+    "Violent outbursts begin at local protests leading to hundreds being jailed.\n"
+    "Locals lament lack of aid in stopping the fight.",
     "Many of the protesters are found out to be criminals. The public criticizes your methods for gaining support.",
 
     "Companies emboldened by low number of protestors refuse to pass environmental protection policies.",
@@ -38,6 +40,7 @@ government_awarded = [
 
 government_havent_awarded = [
     "The government is unconcerned with the situation.",
-    "Our struggle has sunk into the deep sea of endless silence, created by the indifference among our peer..."
+    "Our struggles have sunk into the deep sea of endless silence,\n"
+    "created by the indifference among our peers..."
 ]
 

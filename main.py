@@ -26,7 +26,7 @@ def create_newspaper(boolean, boolean_2, list_index):
         print(government_havent_awarded[random.choice([0, 1])])
 
     print(local_news_options[random.choice([0, 7])])
-    return boolean == False, boolean_2 == False
+
 
 
 while play_game:
@@ -79,8 +79,8 @@ while play_game:
         create_newspaper(player.did_protest, game.government_did_aware, 2)
     else:
         create_newspaper(player.did_protest, game.government_did_aware, 1)
-
-    print(game.government_did_aware)
+    game.government_did_aware = False
+    player.did_protest = False
 
     """ PLAYER DECISION """
     decision = int(input("DECIDE:  (1) WORK, (2) PROTEST, (3) STAY HOME, (4) GO TO HOSPITAL"))
