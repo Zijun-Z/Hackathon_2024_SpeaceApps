@@ -24,6 +24,7 @@ class Player:
         self.illnesses = set()
         self.in_hospital = False
         self.cost_of_living = 1000
+        self.did_protest = False
 
     def stays_home(self):
         self.health += 10
@@ -40,6 +41,7 @@ class Player:
         self.money += self.wage
 
     def goes_to_protest(self):
+        self.did_protest = True
         self.protests_attended += 1
 
     def goes_to_hospital(self):

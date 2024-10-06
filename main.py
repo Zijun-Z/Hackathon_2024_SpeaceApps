@@ -10,22 +10,41 @@ pollution_increase = 3
 
 play_game = True
 
+
+def create_newspaper(boolean, list_index):
+    random_number = random.choice([list_index, list_index - 1])
+    if not boolean:
+        print(bad_news_options[random_number])
+    else:
+        print(good_news_options[random_number])
+    print(local_news_options[random.choice([0, 7])])
+    return boolean == False
+
+
 while play_game:
     if not player.is_alive():
         game.game_over()
         break
 
     """ POLLUTION (CAN BE AT THE END) """
-    if game.pollution > 30: pollution_level = Pollution.HIGH
-    elif game.pollution > 20: pollution_level = Pollution.MEDIUM
-    elif game.pollution > 10: pollution_level = Pollution.LOW
-    else: pollution_level = Pollution.NONE
+    if game.pollution > 30:
+        pollution_level = Pollution.HIGH
+    elif game.pollution > 20:
+        pollution_level = Pollution.MEDIUM
+    elif game.pollution > 10:
+        pollution_level = Pollution.LOW
+    else:
+        pollution_level = Pollution.NONE
 
     """ ILLNESSES """
-    if pollution_level == Pollution.HIGH: illness = random.choice([Illness.CANCER, Illness.PNEUMONIA, Illness.STROKE])
-    elif pollution_level == Pollution.MEDIUM: illness = random.choice([Illness.ASTHMA, Illness.CARDIOVASCULAR_DISEASE])
-    elif pollution_level == Pollution.LOW: illness = random.choice([Illness.IRRITATION, Illness.HEADACHES, Illness.BREATHING_PROBLEMS])
-    else: illness = None
+    if pollution_level == Pollution.HIGH:
+        illness = random.choice([Illness.CANCER, Illness.PNEUMONIA, Illness.STROKE])
+    elif pollution_level == Pollution.MEDIUM:
+        illness = random.choice([Illness.ASTHMA, Illness.CARDIOVASCULAR_DISEASE])
+    elif pollution_level == Pollution.LOW:
+        illness = random.choice([Illness.IRRITATION, Illness.HEADACHES, Illness.BREATHING_PROBLEMS])
+    else:
+        illness = None
 
     if illness:
         player.illnesses.add(illness)
@@ -42,17 +61,29 @@ while play_game:
     is government now aware?
     
     """
-
-
     print("newspaper stuff")
+
+    if pollution_level == Pollution.HIGH:
+        create_newspaper(player.did_protest, 5)
+    elif pollution_level == Pollution.MEDIUM:
+        create_newspaper(player.did_protest, 3)
+    elif pollution_level == Pollution.LOW:
+        create_newspaper(player.did_protest, 2)
+    else:
+        create_newspaper(player.did_protest, 1)
+
 
     """ PLAYER DECISION """
     decision = int(input("DECIDE:  (1) WORK, (2) PROTEST, (3) STAY HOME, (4) GO TO HOSPITAL"))
 
-    if decision == 1: player.goes_to_work()
-    elif decision == 2: player.goes_to_protest()
-    elif decision == 3: player.stays_home()
-    else: player.goes_to_hospital()
+    if decision == 1:
+        player.goes_to_work()
+    elif decision == 2:
+        player.goes_to_protest()
+    elif decision == 3:
+        player.stays_home()
+    else:
+        player.goes_to_hospital()
 
     """ GAME PROGRESSION """
     if player.protests_attended == 3:
@@ -75,5 +106,3 @@ while play_game:
     print(f"health: {player.health}, money: {player.money}, pollution: {pollution_level}, "
           f"protests attended: {player.protests_attended}, pollution increase: {pollution_increase}")
     print("-----------------------------")
-
-
