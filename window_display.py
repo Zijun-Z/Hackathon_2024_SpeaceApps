@@ -61,15 +61,14 @@ while True:
 			pygame.quit()
 			quit()
 		# Draws the surface object to the screen.
-		elif event.type == pygame.MOUSEBUTTONDOWN:
-			if event.button == 1:  # Left mouse button
-				if textRect.collidepoint(event.pos):
-					is_clicked = True
-					paragraph = 'Hello\nWorld\nThis is Pygame'
-					lines = paragraph.split('\n')
-					for i, line in enumerate(lines):
-						text2 = font.render(line, True, black)
-						display_surface.blit(text2, (50, 50 + 40 * i))
+
+	if pygame.mouse.get_pressed()[0]:
+		if textRect.collidepoint(pygame.mouse.get_pos()):
+			paragraph = 'Hello\nWorld\nThis is Pygame'
+			lines = paragraph.split('\n')
+			for i, line in enumerate(lines):
+				text2 = font.render(line, True, black)
+				display_surface.blit(text2, (50, 50 + 40 * i))
 
 
 
