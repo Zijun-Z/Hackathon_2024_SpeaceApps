@@ -16,11 +16,11 @@ class Game:
 
 class Player:
 
-    def __init__(self, health=100, money=2000):
+    def __init__(self, health=200, money=4000):
         self.health = health
         self.money = money
 
-        self.wage = 2000
+        self.wage = 3000
         self.protests_attended = 0
         self.starving = False
         self.illnesses = set()
@@ -69,10 +69,25 @@ class Player:
         if Illness.IRRITATION in illnesses:
             self.health -= 5
         if Illness.HEADACHES in illnesses:
-            self.wage *= 0.95
+            self.wage -= 50
         if Illness.BREATHING_PROBLEMS in illnesses:
+            self.health -= 5
+            self.wage -= 50
+        if Illness.ASTHMA in illnesses:
+            self.health -= 5
+            self.wage -= 100
+        if Illness.CARDIOVASCULAR_DISEASE:
             self.health -= 10
-            self.wage *= 0.95
+            self.wage -= 50
+        if Illness.PNEUMONIA:
+            self.health -= 20
+            self.wage -= 150
+        if Illness.STROKE:
+            self.health -= 30
+            self.wage -= 200
+        if Illness.CANCER:
+            self.health -= 30
+            self.wage -= 500
 
 
 class Newspaper:
@@ -101,9 +116,9 @@ class Illness(Enum):
     ASTHMA = 4
     CARDIOVASCULAR_DISEASE = 5
 
-    CANCER = 6
+    PNEUMONIA = 6
     STROKE = 7
-    PNEUMONIA = 8
+    CANCER = 8
 
 
 class Pollution(Enum):
@@ -111,6 +126,7 @@ class Pollution(Enum):
     LOW = 1
     MEDIUM = 2
     HIGH = 3
+
 
 class Game_state(Enum):
     MENU = 0
