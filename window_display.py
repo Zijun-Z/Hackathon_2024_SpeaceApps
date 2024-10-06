@@ -66,4 +66,9 @@ while True:
 			pygame.quit()
 			quit()
 		# Draws the surface object to the screen.
+		elif event.type == pygame.MOUSEBUTTONDOWN:
+			if event.button == 1:  # Left mouse button
+				if textRect.collidepoint(event.pos):
+					print('Rectangle clicked!')
+
 		pygame.display.update()
