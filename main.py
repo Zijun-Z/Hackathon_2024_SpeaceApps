@@ -61,6 +61,15 @@ while True:
 
         player.apply_illness_affects()
 
+        illness_names = [illness.name for illness in player.illnesses]
+        illnesses_str = ", ".join(illness_names)
+        display_text = f"Current illness: {illnesses_str}"
+
+        player_illnesses_txt = stat_font.render(display_text, True, black)
+        player_illnesses_rect = player_illnesses_txt.get_rect()
+        player_illnesses_rect.bottomleft = (0, screen_height * 0.8)
+        display_surface.blit(player_illnesses_txt, player_illnesses_rect)
+
         if pollution_level == Pollution.HIGH:
             choice_index = 5
         elif pollution_level == Pollution.MEDIUM:
@@ -96,19 +105,19 @@ while True:
         """ PLAYER DECISION """
         work_text = stat_font.render('WORK', True, black)
         work_text_rect = work_text.get_rect()
-        work_text_rect.center = (screen_width * 0.1, screen_height * 0.8)
+        work_text_rect.center = (screen_width * 0.1, screen_height * 0.9)
 
         protest_text = stat_font.render('PROTEST', True, black)
         protest_text_rect = protest_text.get_rect()
-        protest_text_rect.center = (screen_width * 0.3, screen_height * 0.8)
+        protest_text_rect.center = (screen_width * 0.3, screen_height * 0.9)
 
         stay_text = stat_font.render('STAY HOME', True, black)
         stay_text_rect = stay_text.get_rect()
-        stay_text_rect.center = (screen_width * 0.6, screen_height * 0.8)
+        stay_text_rect.center = (screen_width * 0.6, screen_height * 0.9)
 
         hospital_text = stat_font.render('HOSPITAL', True, black)
         hospital_text_rect = hospital_text.get_rect()
-        hospital_text_rect.center = (screen_width * 0.8, screen_height * 0.8)
+        hospital_text_rect.center = (screen_width * 0.8, screen_height * 0.9)
 
         display_surface.blit(work_text, work_text_rect)
         display_surface.blit(protest_text, protest_text_rect)
@@ -138,13 +147,13 @@ while True:
 
         if decision == 1:
             player.goes_to_work()
-
         elif decision == 2:
             player.goes_to_protest()
         elif decision == 3:
             player.stays_home()
         else:
             player.goes_to_hospital()
+
         game.pollution += pollution_increase
 
         if not player.in_hospital:
@@ -153,8 +162,7 @@ while True:
         game_stat = Game_state.AFTER_DECISION
 
     elif game_stat == Game_state.AFTER_DECISION:
-        if pygame.mouse.get_pressed()[0]:
-            game_stat = Game_state.DECISION
+        pass
 
     for event in pygame.event.get():
         # if event object type is QUIT
