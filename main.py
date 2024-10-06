@@ -87,6 +87,7 @@ while True:
         newspaper_local_news = Newspaper(player.did_protest, game.government_did_aware, choice_index)
         newspaper_local_news_text = newspaper_font.render(newspaper_local_news.random_news,True, black)
         newspaper_local_news_rect = newspaper_local_news_text.get_rect()
+        newspaper_local_news_rect.topleft = (0,200)
 
         display_surface.blit(newspaper_local_news_text,newspaper_local_news_rect)
 
