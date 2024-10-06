@@ -1,100 +1,129 @@
 import pygame
-import random
 from classes import *
-from newspaper_text import *
 
-
-
+""" GAME LOGIC STUFF """
 game = Game()
-pollution_level = 0
 player = Player()
 
+pollution_level = 0
 pollution_increase = 3
 
 play_game = True
 
+""" PYGAME STUFF """
+pygame.init()
+game_state = Game_state.MENU
+
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+
+WIDTH = 1280
+HEIGHT = 720
+
+display_surface = pygame.display.set_mode((WIDTH * 0.8, HEIGHT * 0.8))
+pygame.display.set_caption('SyntaxError:')
+
+font = pygame.font.SysFont('arial', 32)
+
+start_text = font.render('Start game', True, BLACK)
+start_text_rect = start_text.get_rect()
+
+""" MAIN GAME LOOP """
 while play_game:
-    if not player.is_alive():
-        game.game_over()
-        break
+    display_surface.fill(WHITE)
 
-    """ POLLUTION (CAN BE AT THE END) """
-    if game.pollution > 30:
-        pollution_level = Pollution.HIGH
-    elif game.pollution > 20:
-        pollution_level = Pollution.MEDIUM
-    elif game.pollution > 10:
-        pollution_level = Pollution.LOW
-    else:
-        pollution_level = Pollution.NONE
+    """ MAIN MENU """
+    if game_state == Game_state.MENU:
+        display_surface.blit(start_text, start_text_rect)
 
-    """ ILLNESSES """
-    if pollution_level == Pollution.HIGH:
-        illness = random.choice([Illness.CANCER, Illness.PNEUMONIA, Illness.STROKE])
-    elif pollution_level == Pollution.MEDIUM:
-        illness = random.choice([Illness.ASTHMA, Illness.CARDIOVASCULAR_DISEASE])
-    elif pollution_level == Pollution.LOW:
-        illness = random.choice([Illness.IRRITATION, Illness.HEADACHES, Illness.BREATHING_PROBLEMS])
-    else:
-        illness = None
+        if pygame.mouse.get_pressed()[0]:
+            if start_text_rect.collidepoint(pygame.mouse.get_pos()):
+                game_state = Game_state.PLAYING
 
-    if illness:
-        player.illnesses.add(illness)
+    """ GAMEPLAY """
+    if game_state == Game_state.PLAYING:
+        if not player.is_alive():
+            game.game_over()
+            break
 
-    player.apply_illness_affects()
-    print(player.illnesses)
+        """ POLLUTION (CAN BE AT THE END) """
+        if game.pollution > 30:
+            pollution_level = Pollution.HIGH
+        elif game.pollution > 20:
+            pollution_level = Pollution.MEDIUM
+        elif game.pollution > 10:
+            pollution_level = Pollution.LOW
+        else:
+            pollution_level = Pollution.NONE
 
-    """ NEWSPAPER """
-    """
-    pollution_level    INCLUDE
-    pollution_increase (pollution rate) HAVEN'T INCLUDE
-    did player attend protest last round?   INCLUDE
-    is government now aware?    HAVEN'T INCLUDE
-    
-    """
-    if pollution_level == Pollution.HIGH: choice_index = 5
-    elif pollution_level == Pollution.MEDIUM: choice_index = 3
-    elif pollution_level == Pollution.LOW: choice_index = 2
-    else: choice_index = 1
+        """ ILLNESSES """
+        if pollution_level == Pollution.HIGH:
+            illness = random.choice([Illness.CANCER, Illness.PNEUMONIA, Illness.STROKE])
+        elif pollution_level == Pollution.MEDIUM:
+            illness = random.choice([Illness.ASTHMA, Illness.CARDIOVASCULAR_DISEASE])
+        elif pollution_level == Pollution.LOW:
+            illness = random.choice([Illness.IRRITATION, Illness.HEADACHES, Illness.BREATHING_PROBLEMS])
+        else:
+            illness = None
 
-    newspaper = Newspaper(player.did_protest, game.government_did_aware, choice_index)
-    newspaper.print()
+        if illness:
+            player.illnesses.add(illness)
 
-    game.government_did_aware = False
-    player.did_protest = False
+        player.apply_illness_affects()
+        print(player.illnesses)
 
-    """ PLAYER DECISION """
-    decision = int(input("DECIDE:  (1) WORK, (2) PROTEST, (3) STAY HOME, (4) GO TO HOSPITAL"))
+        """ NEWSPAPER """
+        if pollution_level == Pollution.HIGH: choice_index = 5
+        elif pollution_level == Pollution.MEDIUM: choice_index = 3
+        elif pollution_level == Pollution.LOW: choice_index = 2
+        else: choice_index = 1
 
-    if decision == 1:
-        player.goes_to_work()
-    elif decision == 2:
-        player.goes_to_protest()
-    elif decision == 3:
-        player.stays_home()
-    else:
-        player.goes_to_hospital()
+        newspaper = Newspaper(player.did_protest, game.government_did_aware, choice_index)
+        newspaper.print()
 
-    """ GAME PROGRESSION """
-    if player.protests_attended == 3:
-        player.protests_attended = 0
-        game.government_is_aware = True
-        game.government_did_aware = True
+        game.government_did_aware = False
+        player.did_protest = False
 
-    if game.government_is_aware:
-        pollution_increase -= 1
-        game.government_is_aware = False
-        game.government_did_aware = True
+        """ PLAYER DECISION """
+        decision = int(input("DECIDE:  (1) WORK, (2) PROTEST, (3) STAY HOME, (4) GO TO HOSPITAL"))
 
-    if pollution_increase == 0:
-        print("you win bozo")
-        break
+        if decision == 1:
+            player.goes_to_work()
+        elif decision == 2:
+            player.goes_to_protest()
+        elif decision == 3:
+            player.stays_home()
+        else:
+            player.goes_to_hospital()
 
-    game.pollution += pollution_increase
+        """ GAME PROGRESSION """
+        if player.protests_attended == 3:
+            player.protests_attended = 0
+            game.government_is_aware = True
+            game.government_did_aware = True
 
-    if not player.in_hospital:
-        player.money -= player.cost_of_living
+        if game.government_is_aware:
+            pollution_increase -= 1
+            game.government_is_aware = False
+            game.government_did_aware = True
 
-    print(f"health: {player.health}, money: {player.money}, pollution: {pollution_level}, "
-          f"protests attended: {player.protests_attended}, pollution increase: {pollution_increase}")
-    print("-----------------------------")
+        if pollution_increase == 0:
+            print("you win bozo")
+            break
+
+        game.pollution += pollution_increase
+
+        if not player.in_hospital:
+            player.money -= player.cost_of_living
+
+        print(f"health: {player.health}, money: {player.money}, pollution: {pollution_level}, "
+              f"protests attended: {player.protests_attended}, pollution increase: {pollution_increase}")
+        print("-----------------------------")
+
+    """ ACTUALLY UPDATE SCREEN """
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            quit()
+
+        pygame.display.update()
