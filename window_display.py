@@ -2,11 +2,11 @@ import pygame
 import random
 from newspaper_text import *
 from classes import *
+
 player = Player()
 game = Game()
-
+game_stat = Game_state
 pygame.init()
-
 game_stat = Game_state.MENU
 
 white = (255, 255, 255)
@@ -14,10 +14,10 @@ black = (0, 0, 0)
 
 # Get the screen size
 screen_info = pygame.display.Info()
-screen_width = screen_info.current_w
-screen_height = screen_info.current_h
+screen_width = screen_info.current_w * 0.95
+screen_height = screen_info.current_h * 0.90
 
-display_surface = pygame.display.set_mode((screen_width * 0.95, screen_height * 0.90))
+display_surface = pygame.display.set_mode((screen_width, screen_height))
 
 # set the pygame window name
 pygame.display.set_caption('SyntaxError:')
@@ -42,6 +42,7 @@ textRect.center = (screen_width // 2, screen_height // 4)
 
 display_text = False
 # infinite loop
+"""
 while True:
     # completely fill the surface object
     # with white color
@@ -61,8 +62,6 @@ while True:
 
         display_surface.blit(protest_news, textRect)
 
-
-
         if pygame.mouse.get_pressed()[0] and textRect.collidepoint(pygame.mouse.get_pos()):
             display_text = not display_text
 
@@ -72,8 +71,6 @@ while True:
             for i, line in enumerate(lines):
                 text2 = newspaper_font.render(line, True, black)
                 display_surface.blit(text2, (50, 50 + 40 * i))
-
-
 
     # iterate over the list of Event objects
     # that was returned by pygame.event.get() method.
@@ -88,3 +85,4 @@ while True:
         # Draws the surface object to the screen.
 
         pygame.display.update()
+"""

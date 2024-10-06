@@ -42,4 +42,3 @@ government_havent_awarded = [
     "The government is unconcerned with the situation.",
     "Our struggles have sunk into the deep sea of endless silence,created by the indifference among our peers..."
 ]
-
