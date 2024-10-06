@@ -49,7 +49,7 @@ while play_game:
     pollution_level    INCLUDE
     pollution_increase (pollution rate) HAVEN'T INCLUDE
     did player attend protest last round?   INCLUDE
-    is government now aware?    HAVEN'T INCLUDE
+    is government now aware?    INCLUDE
     
     """
     if pollution_level == Pollution.HIGH: choice_index = 5
