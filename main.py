@@ -11,14 +11,19 @@ pollution_increase = 3
 play_game = True
 
 
-def create_newspaper(boolean, list_index):
-    random_number = random.choice([list_index, list_index - 1])
-    if not boolean:
-        print(bad_news_options[random_number])
+def create_newspaper(boolean, boolean_2, list_index):
+    if boolean:
+        print(good_news_options[random.choice([list_index, list_index - 1])])
     else:
-        print(good_news_options[random_number])
+        print(bad_news_options[random.choice([list_index, list_index - 1])])
+    if boolean_2:
+        print(government_awarded[random.choice([0, 1])])
+
+    else:
+        print(government_havent_awarded[random.choice([0, 1])])
+
     print(local_news_options[random.choice([0, 7])])
-    return boolean == False
+    return boolean == False, boolean_2 == False
 
 
 while play_game:
@@ -54,24 +59,25 @@ while play_game:
 
     """ NEWSPAPER """
     """
-    pollution_level
-    pollution_increase (pollution rate)
-    did player attend protest last round?
-    pollution_increase
-    is government now aware?
+    pollution_level    INCLUDE
+    pollution_increase (pollution rate) HAVEN'T INCLUDE
+    did player attend protest last round?   INCLUDE
+    is government now aware?    HAVEN'T INCLUDE
     
     """
     print("newspaper stuff")
 
     if pollution_level == Pollution.HIGH:
-        create_newspaper(player.did_protest, 5)
-    elif pollution_level == Pollution.MEDIUM:
-        create_newspaper(player.did_protest, 3)
-    elif pollution_level == Pollution.LOW:
-        create_newspaper(player.did_protest, 2)
-    else:
-        create_newspaper(player.did_protest, 1)
+        create_newspaper(player.did_protest, game.government_did_aware, 5)
 
+    elif pollution_level == Pollution.MEDIUM:
+        create_newspaper(player.did_protest, game.government_did_aware, 3)
+    elif pollution_level == Pollution.LOW:
+        create_newspaper(player.did_protest, game.government_did_aware, 2)
+    else:
+        create_newspaper(player.did_protest, game.government_did_aware, 1)
+
+    print(game.government_did_aware)
 
     """ PLAYER DECISION """
     decision = int(input("DECIDE:  (1) WORK, (2) PROTEST, (3) STAY HOME, (4) GO TO HOSPITAL"))
@@ -89,10 +95,12 @@ while play_game:
     if player.protests_attended == 3:
         player.protests_attended = 0
         game.government_is_aware = True
+        game.government_did_aware = True
 
     if game.government_is_aware:
         pollution_increase -= 1
         game.government_is_aware = False
+        game.government_did_aware = True
 
     if pollution_increase == 0:
         print("you win bozo")

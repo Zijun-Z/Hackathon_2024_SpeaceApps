@@ -7,6 +7,7 @@ class Game:
 
         self.pollution = 0                  # FROM 0 TO 10
         self.government_is_aware = False
+        self.government_did_aware = False
 
     def game_over(self):
         print("you died nerd")

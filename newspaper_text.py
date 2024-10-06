@@ -31,14 +31,13 @@ local_news_options = [
     "An attempted murder has been foiled by the masked vigilante Crazywoman who drank the poison (clocked at 300 000 scoville) meant for the president. She later claims “it was delicious”"
 ]
 
-"""
-    if pollution_level == Pollution.HIGH:
-        creat_newspaper(player.did_protest, 5)
-    elif pollution_level == Pollution.MEDIUM:
-        creat_newspaper(player.did_protest, 3)
-    elif pollution_level == Pollution.LOW:
-        creat_newspaper(player.did_protest, 2)
-    else:
-        creat_newspaper(player.did_protest, 1)
+government_awarded = [
+    "The amount of protest attracted politician's attention! More policy on new energy have been published!",
+    "The government is surprised by the amount of protest! New restriction have been applied to reduce climate change!"
+]
 
-"""
+government_havent_awarded = [
+    "The government is unconcerned with the situation.",
+    "Our struggle has sunk into the deep sea of endless silence, created by the indifference among our peer..."
+]
+
