@@ -87,7 +87,7 @@ class Player:
             self.wage -= 200
         if Illness.CANCER:
             self.health -= 30
-            self.wage -= 500
+            self.wage -= 501
 
 
 class Newspaper:
