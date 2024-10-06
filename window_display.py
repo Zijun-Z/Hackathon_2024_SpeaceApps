@@ -33,7 +33,7 @@ textRect = text.get_rect()
 # set the center of the rectangular object.
 textRect.center = (screen_width //2, screen_height // 4)
 
-
+is_clicked = False
 
 
 # infinite loop
@@ -47,11 +47,6 @@ while True:
 
 	display_surface.blit(text, textRect)
 
-	paragraph = 'Hello\nWorld\nThis is Pygame'
-	lines = paragraph.split('\n')
-	for i, line in enumerate(lines):
-		text2 = font.render(line, True, black)
-		display_surface.blit(text2, (50, 50 + 40 * i))
 
 
 
@@ -69,6 +64,14 @@ while True:
 		elif event.type == pygame.MOUSEBUTTONDOWN:
 			if event.button == 1:  # Left mouse button
 				if textRect.collidepoint(event.pos):
-					print('Rectangle clicked!')
+					is_clicked = True
+					paragraph = 'Hello\nWorld\nThis is Pygame'
+					lines = paragraph.split('\n')
+					for i, line in enumerate(lines):
+						text2 = font.render(line, True, black)
+						display_surface.blit(text2, (50, 50 + 40 * i))
+
+
+
 
 		pygame.display.update()
