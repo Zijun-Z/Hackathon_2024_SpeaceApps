@@ -1,7 +1,9 @@
-
+import pygame
 import random
 from classes import *
 from newspaper_text import *
+
+
 
 game = Game()
 pollution_level = 0
