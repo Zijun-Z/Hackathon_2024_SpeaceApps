@@ -11,7 +11,7 @@ good_news_options = [
 ]
 
 bad_news_options = [
-    "Violent outbursts begin at local protests leading to hundreds being jailed.\n"
+    "Violent outbursts begin at local protests leading to hundreds being jailed."
     "Locals lament lack of aid in stopping the fight.",
     "Many of the protesters are found out to be criminals. The public criticizes your methods for gaining support.",
 
@@ -22,7 +22,7 @@ bad_news_options = [
     "Due to the insufficient number of people, all the students who participated in the protest received detention."
 ]
 
-local_news_options = [
+random_news = [
     "Breaking news : my ex wife still misses me. But her aim is getting better!",
     "Local farmer confirms he saw a UFO shaped like a cow flying over his crops.",
     "New studies show that the fifth most common cause of death is juice overdose. Locals are terrified.",
@@ -40,7 +40,6 @@ government_awarded = [
 
 government_havent_awarded = [
     "The government is unconcerned with the situation.",
-    "Our struggles have sunk into the deep sea of endless silence,\n"
-    "created by the indifference among our peers..."
+    "Our struggles have sunk into the deep sea of endless silence,created by the indifference among our peers..."
 ]
 

@@ -1,4 +1,6 @@
 from enum import Enum
+from newspaper_text import *
+import random
 
 
 class Game:
@@ -75,10 +77,21 @@ class Player:
 
 
 class Newspaper:
-    def __init__(self, date, local_news, poster):
-        self.date = date
-        self.local_news = local_news
-        self.poster = poster
+    def __init__(self, player_protested, government_is_aware, choice_index):
+        if player_protested:
+            self.protest_news = good_news_options[random.choice([choice_index, choice_index - 1])]
+        else:
+            self.protest_news = bad_news_options[random.choice([choice_index, choice_index - 1])]
+
+        if government_is_aware:
+            self.government_action = random.choice(government_awarded)
+        else:
+            self.government_action = random.choice(government_havent_awarded)
+
+        self.random_news = random.choice(random_news)
+
+    def print(self):
+        print(f"{self.protest_news}\n{self.government_action}\n{self.random_news}")
 
 
 class Illness(Enum):
@@ -99,5 +112,10 @@ class Pollution(Enum):
     LOW = 1
     MEDIUM = 2
     HIGH = 3
+
+class Game_state(Enum):
+    MENU = 0
+    PLAYING = 1
+    GAME_OVER = 2
 
 

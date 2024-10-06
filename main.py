@@ -13,22 +13,6 @@ pollution_increase = 3
 
 play_game = True
 
-
-def create_newspaper(boolean, boolean_2, list_index):
-    if boolean:
-        print(good_news_options[random.choice([list_index, list_index - 1])])
-    else:
-        print(bad_news_options[random.choice([list_index, list_index - 1])])
-    if boolean_2:
-        print(government_awarded[random.choice([0, 1])])
-
-    else:
-        print(government_havent_awarded[random.choice([0, 1])])
-
-    print(local_news_options[random.choice([0, 7])])
-
-
-
 while play_game:
     if not player.is_alive():
         game.game_over()
@@ -68,17 +52,14 @@ while play_game:
     is government now aware?    HAVEN'T INCLUDE
     
     """
-    print("newspaper stuff")
+    if pollution_level == Pollution.HIGH: choice_index = 5
+    elif pollution_level == Pollution.MEDIUM: choice_index = 3
+    elif pollution_level == Pollution.LOW: choice_index = 2
+    else: choice_index = 1
 
-    if pollution_level == Pollution.HIGH:
-        create_newspaper(player.did_protest, game.government_did_aware, 5)
+    newspaper = Newspaper(player.did_protest, game.government_did_aware, choice_index)
+    newspaper.print()
 
-    elif pollution_level == Pollution.MEDIUM:
-        create_newspaper(player.did_protest, game.government_did_aware, 3)
-    elif pollution_level == Pollution.LOW:
-        create_newspaper(player.did_protest, game.government_did_aware, 2)
-    else:
-        create_newspaper(player.did_protest, game.government_did_aware, 1)
     game.government_did_aware = False
     player.did_protest = False
 
