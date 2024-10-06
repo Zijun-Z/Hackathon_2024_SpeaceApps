@@ -130,7 +130,8 @@ class Pollution(Enum):
 
 class Game_state(Enum):
     MENU = 0
-    PLAYING = 1
-    GAME_OVER = 2
+    DECISION = 1
+    AFTER_DECISION = 2
+    GAME_OVER = 3
 
 

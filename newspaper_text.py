@@ -1,8 +1,8 @@
 good_news_options = [
-    "Local environmentalists clean up 10 000 kg of garbage, restoring local beaches.",
+    "Local environmentalists clean up 10 000 kg of garbage,\n restoring local beaches.",
     "Public opinion on social media is spreading awareness about local environmental protest.",
 
-    "Local environmentalists promote composting system, reducing local waste!",
+    "Local environmentalists promote composting system,\n reducing local waste!",
     "Local volunteers plant over 100 trees, improving local green space and air quality.",
 
     "Protest leader saves local child from an attempted kidnapping. \nNo one can speak out about your protests without looking like the bad guy.\n",

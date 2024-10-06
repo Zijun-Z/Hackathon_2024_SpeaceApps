@@ -32,11 +32,11 @@ while True:
         display_surface.blit(text1, textRect)
         if pygame.mouse.get_pressed()[0]:
             if textRect.collidepoint(pygame.mouse.get_pos()):
-                game_stat = Game_state.PLAYING
+                game_stat = Game_state.DECISION
 
     #PLAYING
 
-    elif game_stat == Game_state.PLAYING:
+    elif game_stat == Game_state.DECISION:
 
         if game.pollution > 30:
             pollution_level = Pollution.HIGH
@@ -61,7 +61,6 @@ while True:
 
         player.apply_illness_affects()
 
-
         if pollution_level == Pollution.HIGH:
             choice_index = 5
         elif pollution_level == Pollution.MEDIUM:
@@ -85,12 +84,11 @@ while True:
         display_surface.blit(newspaper_government_is_aware_text, newspaper_government_is_aware_rect)
 
         newspaper_local_news = Newspaper(player.did_protest, game.government_did_aware, choice_index)
-        newspaper_local_news_text = newspaper_font.render(newspaper_local_news.random_news,True, black)
+        newspaper_local_news_text = newspaper_font.render(newspaper_local_news.random_news, True, black)
         newspaper_local_news_rect = newspaper_local_news_text.get_rect()
-        newspaper_local_news_rect.topleft = (0,200)
+        newspaper_local_news_rect.topleft = (0, 200)
 
-        display_surface.blit(newspaper_local_news_text,newspaper_local_news_rect)
-
+        display_surface.blit(newspaper_local_news_text, newspaper_local_news_rect)
 
         game.government_did_aware = False
         player.did_protest = False
@@ -130,6 +128,7 @@ while True:
             if pygame.mouse.get_pressed()[0]:
                 if work_text_rect.collidepoint(pygame.mouse.get_pos()):
                     decision = 1
+
                 if protest_text_rect.collidepoint(pygame.mouse.get_pos()):
                     decision = 2
                 if stay_text_rect.collidepoint(pygame.mouse.get_pos()):
@@ -150,6 +149,12 @@ while True:
 
         if not player.in_hospital:
             player.money -= player.cost_of_living
+
+        game_stat = Game_state.AFTER_DECISION
+
+    elif game_stat == Game_state.AFTER_DECISION:
+        if pygame.mouse.get_pressed()[0]:
+            game_stat = Game_state.DECISION
 
     for event in pygame.event.get():
         # if event object type is QUIT

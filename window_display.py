@@ -41,7 +41,6 @@ textRect = protest_news.get_rect()
 textRect.center = (screen_width // 2, screen_height // 4)
 
 display_text = False
-# infinite loop
 """
 while True:
     # completely fill the surface object
