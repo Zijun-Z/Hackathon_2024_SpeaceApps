@@ -1,7 +1,7 @@
 from enum import Enum
 from newspaper_text import *
 import random
-
+#test
 
 class Game:
     def __init__(self, start_date="2024-01-01"):
