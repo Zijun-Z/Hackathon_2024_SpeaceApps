@@ -17,16 +17,18 @@ game_state = Game_state.MENU
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 
-WIDTH = 1280
-HEIGHT = 720
+SYSTEM_INFO = pygame.display.Info()
+WIDTH = SYSTEM_INFO.current_w * 0.8
+HEIGHT = SYSTEM_INFO.current_h * 0.8
 
-display_surface = pygame.display.set_mode((WIDTH * 0.8, HEIGHT * 0.8))
+display_surface = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('SyntaxError:')
 
 font = pygame.font.SysFont('arial', 32)
 
 start_text = font.render('Start game', True, BLACK)
 start_text_rect = start_text.get_rect()
+start_text_rect.center = (WIDTH // 2, HEIGHT // 2)
 
 """ MAIN GAME LOOP """
 while play_game:
@@ -40,11 +42,8 @@ while play_game:
             if start_text_rect.collidepoint(pygame.mouse.get_pos()):
                 game_state = Game_state.PLAYING
 
-    """ GAMEPLAY """
-    if game_state == Game_state.PLAYING:
-        if not player.is_alive():
-            game.game_over()
-            break
+    # GAMEPLAY
+    elif game_state == Game_state.PLAYING:
 
         """ POLLUTION (CAN BE AT THE END) """
         if game.pollution > 30:
@@ -85,7 +84,46 @@ while play_game:
         player.did_protest = False
 
         """ PLAYER DECISION """
-        decision = int(input("DECIDE:  (1) WORK, (2) PROTEST, (3) STAY HOME, (4) GO TO HOSPITAL"))
+        work_text = font.render('WORK', True, BLACK)
+        work_text_rect = work_text.get_rect()
+        work_text_rect.center = (WIDTH // 2 - 200, HEIGHT // 2)
+
+        protest_text = font.render('PROTEST', True, BLACK)
+        protest_text_rect = protest_text.get_rect()
+        protest_text_rect.center = (WIDTH // 2 + 200, HEIGHT // 2)
+
+        stay_text = font.render('STAY HOME', True, BLACK)
+        stay_text_rect = stay_text.get_rect()
+        stay_text_rect.center = (WIDTH // 2 - 200, HEIGHT // 2 + 200)
+
+        hospital_text = font.render('HOSPITAL', True, BLACK)
+        hospital_text_rect = hospital_text.get_rect()
+        hospital_text_rect.center = (WIDTH // 2 + 200, HEIGHT // 2 + 200)
+
+        display_surface.blit(work_text, work_text_rect)
+        display_surface.blit(protest_text, protest_text_rect)
+        display_surface.blit(stay_text, stay_text_rect)
+        display_surface.blit(hospital_text, hospital_text_rect)
+
+        pygame.display.update()
+
+        decision = None
+
+        while not decision:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    quit()
+
+            if pygame.mouse.get_pressed()[0]:
+                if work_text_rect.collidepoint(pygame.mouse.get_pos()):
+                    decision = 1
+                if protest_text_rect.collidepoint(pygame.mouse.get_pos()):
+                    decision = 2
+                if stay_text_rect.collidepoint(pygame.mouse.get_pos()):
+                    decision = 3
+                if hospital_text_rect.collidepoint(pygame.mouse.get_pos()):
+                    decision = 4
 
         if decision == 1:
             player.goes_to_work()
@@ -96,34 +134,35 @@ while play_game:
         else:
             player.goes_to_hospital()
 
-        """ GAME PROGRESSION """
-        if player.protests_attended == 3:
-            player.protests_attended = 0
-            game.government_is_aware = True
-            game.government_did_aware = True
+    #     """ GAME PROGRESSION """
+    #     if player.protests_attended == 3:
+    #         player.protests_attended = 0
+    #         game.government_is_aware = True
+    #         game.government_did_aware = True
+    #
+    #     if game.government_is_aware:
+    #         pollution_increase -= 1
+    #         game.government_is_aware = False
+    #         game.government_did_aware = True
+    #
+    #     if pollution_increase == 0:
+    #         print("you win bozo")
+    #         break
+    #
+    #     game.pollution += pollution_increase
+    #
+    #     if not player.in_hospital:
+    #         player.money -= player.cost_of_living
+    #
+    #     print(f"health: {player.health}, money: {player.money}, pollution: {pollution_level}, "
+    #           f"protests attended: {player.protests_attended}, pollution increase: {pollution_increase}")
+    #     print("-----------------------------")
 
-        if game.government_is_aware:
-            pollution_increase -= 1
-            game.government_is_aware = False
-            game.government_did_aware = True
-
-        if pollution_increase == 0:
-            print("you win bozo")
-            break
-
-        game.pollution += pollution_increase
-
-        if not player.in_hospital:
-            player.money -= player.cost_of_living
-
-        print(f"health: {player.health}, money: {player.money}, pollution: {pollution_level}, "
-              f"protests attended: {player.protests_attended}, pollution increase: {pollution_increase}")
-        print("-----------------------------")
-
-    """ ACTUALLY UPDATE SCREEN """
+    """ EVENT HANDLING """
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             quit()
 
-        pygame.display.update()
+    """ ACTUALLY UPDATE SCREEN """
+    pygame.display.update()
