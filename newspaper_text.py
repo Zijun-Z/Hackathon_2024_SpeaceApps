@@ -5,8 +5,7 @@ good_news_options = [
     "Local environmentalists promote composting system, reducing local waste!",
     "Local volunteers plant over 100 trees, improving local green space and air quality.",
 
-    "Protest leader saves local child from an attempted kidnapping. \n"
-    "No one can speak out about your protests without looking like the bad guy.\n",
+    "Protest leader saves local child from an attempted kidnapping. \nNo one can speak out about your protests without looking like the bad guy.\n",
     "A famous actor has seen local protests, and is impressed with the protesters dedication!",
 ]
 

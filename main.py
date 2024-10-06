@@ -61,6 +61,7 @@ while True:
 
         player.apply_illness_affects()
 
+
         if pollution_level == Pollution.HIGH:
             choice_index = 5
         elif pollution_level == Pollution.MEDIUM:
@@ -83,9 +84,11 @@ while True:
         newspaper_government_is_aware_rect.topleft = (0, 100)
         display_surface.blit(newspaper_government_is_aware_text, newspaper_government_is_aware_rect)
 
-        newspaper_government_is_aware = Newspaper(player.did_protest, game.government_did_aware, choice_index)
-        newspaper_government_is_aware_text = newspaper_font.render(newspaper_government_is_aware.government_action,
-                                                                   True, black)
+        newspaper_local_news = Newspaper(player.did_protest, game.government_did_aware, choice_index)
+        newspaper_local_news_text = newspaper_font.render(newspaper_local_news.random_news,True, black)
+        newspaper_local_news_rect = newspaper_local_news_text.get_rect()
+
+        display_surface.blit(newspaper_local_news_text,newspaper_local_news_rect)
 
 
         game.government_did_aware = False
@@ -135,6 +138,7 @@ while True:
 
         if decision == 1:
             player.goes_to_work()
+
         elif decision == 2:
             player.goes_to_protest()
         elif decision == 3:
