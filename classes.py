@@ -25,7 +25,7 @@ class Player:
         self.starving = False
         self.illnesses = set()
         self.in_hospital = False
-        self.cost_of_living = 0
+        self.cost_of_living = 150
         self.did_protest = False
 
     def stays_home(self):
