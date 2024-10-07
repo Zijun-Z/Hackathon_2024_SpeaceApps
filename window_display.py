@@ -4,6 +4,8 @@ from newspaper_text import *
 from classes import *
 import os
 
+
+
 title_card = True
 b = 0
 death_screen = False
@@ -43,8 +45,27 @@ backgrounds = [pygame.image.load("images/1.png").convert_alpha(),
                pygame.image.load("images/17.png").convert_alpha(),
                pygame.image.load("images/18.png").convert_alpha(),
                pygame.image.load("images/19.png").convert_alpha(), ]
+
+
 titleCard = pygame.image.load("images/title_card.png").convert_alpha()
 deathScreen = pygame.image.load("images/game_over.png").convert_alpha()
+player_healthy = pygame.image.load("images/worker_healthy.png").convert_alpha()
+
+healthy_good = pygame.transform.scale(player_healthy, (400, 520))
+
+player_sick_light = pygame.image.load("images/worker_sick_light.png").convert_alpha()
+sick_light_good = pygame.transform.scale(player_sick_light, (400, 520))
+
+player_sick_medium = pygame.image.load("images/worker_sick_medium.png").convert_alpha()
+sick_medium_good = pygame.transform.scale(player_sick_medium, (400, 520))
+
+player_sick_fatal = pygame.image.load("images/worker_sick_fatal.png").convert_alpha()
+sick_fatal_good = pygame.transform.scale(player_sick_fatal, (400, 520))
+
+player_displayed = healthy_good
+
+
+
 
 player = Player()
 game = Game()
@@ -95,6 +116,8 @@ while True:
             display_surface.blit(deathScreen, (0, 0))
         else:
             display_surface.blit(backgrounds[b], (0, 0))
+
+        display_surface.blit(player_displayed, (screen_width*0.75, 200))
 
         display_surface.blit(protest_news, textRect)
 

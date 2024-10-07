@@ -50,6 +50,8 @@ while True:
         else:
             display_surface.blit(backgrounds[b], (0, 0))
 
+        display_surface.blit(player_displayed, (screen_width*0.75, 200))
+
         if game.pollution > 30:
             pollution_level = Pollution.HIGH
         elif game.pollution > 20:
