@@ -17,6 +17,8 @@ display_text = False
 
 mouse_clicked = False  # Add a flag to track mouse click state
 
+title_card = True
+
 while True:
     if not player.is_alive():
         game.game_over()
@@ -31,17 +33,22 @@ while True:
     """MENU"""
 
     if game_stat == Game_state.MENU:
-        display_surface.blit(text1, textRect)
-        if pygame.mouse.get_pressed()[0] and not mouse_clicked:
-            mouse_clicked = True  # Set the flag when the mouse is clicked
-            if textRect.collidepoint(pygame.mouse.get_pos()):
-                game_stat = Game_state.DECISION
-        elif not pygame.mouse.get_pressed()[0]:
-            mouse_clicked = False  # Reset the flag when the mouse button is released
 
-    # PLAYING
+        if title_card:
+            display_surface.blit(titleCard, (0, 0))
+
+        keys = pygame.key.get_pressed()
+
+        if keys[pygame.K_s]:
+            title_card = False
+            game_stat = game_stat.DECISION
 
     elif game_stat == Game_state.DECISION:
+
+        if death_screen:
+            display_surface.blit(deathScreen, (0, 0))
+        else:
+            display_surface.blit(backgrounds[b], (0, 0))
 
         if game.pollution > 30:
             pollution_level = Pollution.HIGH
@@ -83,25 +90,26 @@ while True:
             choice_index = 2
         else:
             choice_index = 1
+        pygame.draw.rect(display_surface, white, pygame.Rect(0, 100, 900, 300))
 
         newspaper_protest = Newspaper(player.did_protest, game.government_did_aware, choice_index)
         newspaper_protest_text = newspaper_font.render(newspaper_protest.protest_news, True, black)
         newspaper_protest_rect = newspaper_protest_text.get_rect()
-        newspaper_protest_rect.topleft = (0, 0)
-        display_surface.blit(newspaper_protest_text, newspaper_protest_rect)
+        newspaper_protest_rect.topleft = (0, 100)
 
         newspaper_government_is_aware = Newspaper(player.did_protest, game.government_did_aware, choice_index)
         newspaper_government_is_aware_text = newspaper_font.render(newspaper_government_is_aware.government_action,
                                                                    True, black)
         newspaper_government_is_aware_rect = newspaper_government_is_aware_text.get_rect()
-        newspaper_government_is_aware_rect.topleft = (0, 100)
-        display_surface.blit(newspaper_government_is_aware_text, newspaper_government_is_aware_rect)
+        newspaper_government_is_aware_rect.topleft = (0, newspaper_protest_rect.y + 100)
 
         newspaper_local_news = Newspaper(player.did_protest, game.government_did_aware, choice_index)
         newspaper_local_news_text = newspaper_font.render(newspaper_local_news.random_news, True, black)
         newspaper_local_news_rect = newspaper_local_news_text.get_rect()
-        newspaper_local_news_rect.topleft = (0, 200)
+        newspaper_local_news_rect.topleft = (0, newspaper_government_is_aware_rect.y + 100)
 
+        display_surface.blit(newspaper_protest_text, newspaper_protest_rect)
+        display_surface.blit(newspaper_government_is_aware_text, newspaper_government_is_aware_rect)
         display_surface.blit(newspaper_local_news_text, newspaper_local_news_rect)
 
         game.government_did_aware = False

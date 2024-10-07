@@ -42,7 +42,7 @@ backgrounds = [pygame.image.load("images/1.png").convert_alpha(),
                pygame.image.load("images/16.png").convert_alpha(),
                pygame.image.load("images/17.png").convert_alpha(),
                pygame.image.load("images/18.png").convert_alpha(),
-               pygame.image.load("images/19.png").convert_alpha(),]
+               pygame.image.load("images/19.png").convert_alpha(), ]
 titleCard = pygame.image.load("images/title_card.png").convert_alpha()
 deathScreen = pygame.image.load("images/game_over.png").convert_alpha()
 
@@ -50,7 +50,7 @@ player = Player()
 game = Game()
 game_stat = Game_state.MENU
 
-newspaper_font = pygame.font.SysFont('Times New Roman', 32)
+newspaper_font = pygame.font.SysFont('Times New Roman', 26)
 stat_font = pygame.font.SysFont('Calibri', 32)
 
 # Create a text surface object,
@@ -59,9 +59,6 @@ nb = random.randint(0, 1)
 
 protest_news = newspaper_font.render(government_havent_awarded[nb], True, black)
 
-text1 = newspaper_font.render('Start game', True, black)
-
-# Create a rectangular object for the
 # text surface object
 textRect = protest_news.get_rect()
 
@@ -70,6 +67,8 @@ textRect.center = (screen_width // 2, screen_height // 4)
 
 display_text = False
 
+polution_up = False
+"""
 while True:
     # Completely fill the surface object
     # with white color
@@ -79,28 +78,28 @@ while True:
     # at the center coordinate.
 
     if game_stat == Game_state.MENU:
-        display_surface.blit(text1, textRect)
-        if pygame.mouse.get_pressed()[0]:
-            if textRect.collidepoint(pygame.mouse.get_pos()):
-                game_stat = Game_state.DECISION
+
+        if title_card:
+            display_surface.blit(titleCard, (0, 0))
 
         keys = pygame.key.get_pressed()
 
         if keys[pygame.K_s]:
             title_card = False
-        if title_card == True:
-            display_surface.blit(titleCard, (0, 0))
-        elif death_screen == True:
+            game_stat = game_stat.DECISION
+
+    if game_stat == Game_state.DECISION:
+
+
+        if death_screen:
             display_surface.blit(deathScreen, (0, 0))
         else:
             display_surface.blit(backgrounds[b], (0, 0))
 
-        # polution level up:
-        if b < 18:
-            b += 1
-
-    if game_stat == Game_state.DECISION:
         display_surface.blit(protest_news, textRect)
+
+        # polution level up:
+
 
         if pygame.mouse.get_pressed()[0] and textRect.collidepoint(pygame.mouse.get_pos()):
             display_text = not display_text
@@ -126,3 +125,4 @@ while True:
         # Draws the surface object to the screen.
 
     pygame.display.update()
+"""
