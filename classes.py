@@ -16,7 +16,7 @@ class Game:
 
 class Player:
 
-    def __init__(self, health=200, money=4000):
+    def __init__(self, health=2000, money=4000):
         self.health = health
         self.money = money
 

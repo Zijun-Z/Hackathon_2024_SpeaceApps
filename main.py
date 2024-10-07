@@ -21,6 +21,7 @@ title_card = True
 
 while True:
     if not player.is_alive():
+        game_stat = Game_state.GAME_OVER
         game.game_over()
 
     # completely fill the surface object
@@ -31,10 +32,8 @@ while True:
     # at the center coordinate.
 
     """MENU"""
-    if death_screen:
-        display_surface.blit(deathScreen, (0, 0))
-    else:
-        display_surface.blit(backgrounds[b], (0, 0))
+
+    display_surface.blit(backgrounds[b], (0, 0))
 
     if game_stat == Game_state.MENU:
 
@@ -173,15 +172,24 @@ while True:
             if pygame.mouse.get_pressed()[0] and not mouse_clicked:
                 mouse_clicked = True  # Set the flag when the mouse is clicked
                 if work_text_rect.collidepoint(pygame.mouse.get_pos()):
-                    player.goes_to_work()
+                    decision = 1
                 if protest_text_rect.collidepoint(pygame.mouse.get_pos()):
-                    player.goes_to_protest()
+                    decision = 2
                 if stay_text_rect.collidepoint(pygame.mouse.get_pos()):
-                    player.stays_home()
+                    decision = 3
                 if hospital_text_rect.collidepoint(pygame.mouse.get_pos()):
-                    player.goes_to_hospital()
+                    decision = 4
             elif not pygame.mouse.get_pressed()[0]:
                 mouse_clicked = False  # Reset the flag when the mouse button is released
+
+        if decision == 1:
+            player.goes_to_work()
+        elif decision == 2:
+            player.goes_to_protest()
+        elif decision == 3:
+            player.stays_home()
+        else:
+            player.goes_to_hospital()
 
         game.pollution += pollution_increase
         if b < 18:
@@ -190,8 +198,9 @@ while True:
         if not player.in_hospital:
             player.money -= player.cost_of_living
 
-    elif game_stat == Game_state.AFTER_DECISION:
-        pass
+    elif game_stat == Game_state.GAME_OVER:
+
+        display_surface.blit(deathScreen, (0, 0))
 
     for event in pygame.event.get():
         # if event object type is QUIT
