@@ -31,6 +31,10 @@ while True:
     # at the center coordinate.
 
     """MENU"""
+    if death_screen:
+        display_surface.blit(deathScreen, (0, 0))
+    else:
+        display_surface.blit(backgrounds[b], (0, 0))
 
     if game_stat == Game_state.MENU:
 
@@ -45,10 +49,18 @@ while True:
 
     elif game_stat == Game_state.DECISION:
 
-        if death_screen:
-            display_surface.blit(deathScreen, (0, 0))
-        else:
-            display_surface.blit(backgrounds[b], (0, 0))
+        # Render player health and money as text
+        player_health_txt = stat_font.render(f"Health: {player.health}", True, black)
+        player_health_rect = player_health_txt.get_rect()
+        player_health_rect.topright = (1300, 100)  # Set the position for health text
+
+        display_surface.blit(player_health_txt, player_health_rect)
+
+        player_money_txt = stat_font.render(f"Money: {player.money}", True, black)
+        player_money_rect = player_money_txt.get_rect()
+        player_money_rect.topright = (1300, 140)  # Set the position for money text
+
+        display_surface.blit(player_money_txt, player_money_rect)
 
         if player.health < 50:
             player_displayed = sick_fatal_good
@@ -186,6 +198,11 @@ while True:
 
         if not player.in_hospital:
             player.money -= player.cost_of_living
+
+
+
+
+
 
     elif game_stat == Game_state.AFTER_DECISION:
         pass
