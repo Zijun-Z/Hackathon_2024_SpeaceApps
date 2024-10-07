@@ -9,7 +9,7 @@ game = Game()
 pollution_level = 0
 player = Player()
 
-pollution_increase = 1.66
+pollution_increase = 1
 
 play_game = True
 
@@ -61,11 +61,11 @@ while True:
 
         display_surface.blit(player_money_txt, player_money_rect)
 
-        if player.health < 50:
+        if player.health < 500:
             player_displayed = sick_fatal_good
-        elif player.health < 100:
+        elif player.health < 1000:
             player_displayed = sick_medium_good
-        elif player.health < 150:
+        elif player.health < 1500:
             player_displayed = sick_light_good
         else:
             player_displayed = healthy_good
@@ -173,11 +173,11 @@ while True:
                 mouse_clicked = True  # Set the flag when the mouse is clicked
                 if work_text_rect.collidepoint(pygame.mouse.get_pos()):
                     decision = 1
-                if protest_text_rect.collidepoint(pygame.mouse.get_pos()):
+                elif protest_text_rect.collidepoint(pygame.mouse.get_pos()):
                     decision = 2
-                if stay_text_rect.collidepoint(pygame.mouse.get_pos()):
+                elif stay_text_rect.collidepoint(pygame.mouse.get_pos()):
                     decision = 3
-                if hospital_text_rect.collidepoint(pygame.mouse.get_pos()):
+                elif hospital_text_rect.collidepoint(pygame.mouse.get_pos()):
                     decision = 4
             elif not pygame.mouse.get_pressed()[0]:
                 mouse_clicked = False  # Reset the flag when the mouse button is released
@@ -186,17 +186,33 @@ while True:
             player.goes_to_work()
         elif decision == 2:
             player.goes_to_protest()
+            player.did_protest = True
         elif decision == 3:
             player.stays_home()
         else:
             player.goes_to_hospital()
 
+        if not player.in_hospital:
+            player.money -= player.cost_of_living
+
+        if player.protests_attended == 3:
+            game.government_is_aware = True
+            game.government_did_aware = True
+            pollution_increase -= 1
+            game.government_is_aware = False
+
         game.pollution += pollution_increase
         if b < 18:
             b += 1
 
-        if not player.in_hospital:
-            player.money -= player.cost_of_living
+        if pollution_increase == 0:
+            game_stat = Game_state.Win
+    elif game_stat == Game_state.Win:
+        display_surface.blit(winScreen, (0, 0))
+
+
+
+
 
     elif game_stat == Game_state.GAME_OVER:
 

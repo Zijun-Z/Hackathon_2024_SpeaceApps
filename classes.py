@@ -25,11 +25,11 @@ class Player:
         self.starving = False
         self.illnesses = set()
         self.in_hospital = False
-        self.cost_of_living = 1000
+        self.cost_of_living = 0
         self.did_protest = False
 
     def stays_home(self):
-        self.health += 10
+        self.health += 100
         remove = set()
 
         for illness in self.illnesses:
@@ -48,9 +48,8 @@ class Player:
 
     def goes_to_hospital(self):
         self.in_hospital = True
-        self.health += 60
-        self.money -= 2 * self.wage
-
+        self.health += 600
+        self.money -= (2 * self.wage)
         remove = set()
 
         for illness in self.illnesses:
@@ -133,5 +132,6 @@ class Game_state(Enum):
     DECISION = 1
     AFTER_DECISION = 2
     GAME_OVER = 3
+    Win = 4
 
 
