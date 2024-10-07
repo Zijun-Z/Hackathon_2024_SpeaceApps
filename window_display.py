@@ -41,6 +41,7 @@ textRect = protest_news.get_rect()
 textRect.center = (screen_width // 2, screen_height // 4)
 
 display_text = False
+
 """
 while True:
     # completely fill the surface object
@@ -55,14 +56,14 @@ while True:
         display_surface.blit(text1, textRect)
         if pygame.mouse.get_pressed()[0]:
             if textRect.collidepoint(pygame.mouse.get_pos()):
-                game_stat = Game_state.PLAYING
-
-    if game_stat == Game_state.PLAYING:
+                game_stat = Game_state.DECISION
+    if game_stat == Game_state.DECISION:
 
         display_surface.blit(protest_news, textRect)
 
         if pygame.mouse.get_pressed()[0] and textRect.collidepoint(pygame.mouse.get_pos()):
             display_text = not display_text
+            handle_mouse_click()
 
         if display_text:
             paragraph = 'Hello\nWorld\nThis is Pygame'
@@ -70,6 +71,7 @@ while True:
             for i, line in enumerate(lines):
                 text2 = newspaper_font.render(line, True, black)
                 display_surface.blit(text2, (50, 50 + 40 * i))
+        print(display_text)
 
     # iterate over the list of Event objects
     # that was returned by pygame.event.get() method.

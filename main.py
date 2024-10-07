@@ -15,6 +15,8 @@ play_game = True
 
 display_text = False
 
+mouse_clicked = False  # Add a flag to track mouse click state
+
 while True:
     if not player.is_alive():
         game.game_over()
@@ -30,11 +32,14 @@ while True:
 
     if game_stat == Game_state.MENU:
         display_surface.blit(text1, textRect)
-        if pygame.mouse.get_pressed()[0]:
+        if pygame.mouse.get_pressed()[0] and not mouse_clicked:
+            mouse_clicked = True  # Set the flag when the mouse is clicked
             if textRect.collidepoint(pygame.mouse.get_pos()):
                 game_stat = Game_state.DECISION
+        elif not pygame.mouse.get_pressed()[0]:
+            mouse_clicked = False  # Reset the flag when the mouse button is released
 
-    #PLAYING
+    # PLAYING
 
     elif game_stat == Game_state.DECISION:
 
@@ -134,16 +139,18 @@ while True:
                     pygame.quit()
                     quit()
 
-            if pygame.mouse.get_pressed()[0]:
+            if pygame.mouse.get_pressed()[0] and not mouse_clicked:
+                mouse_clicked = True  # Set the flag when the mouse is clicked
                 if work_text_rect.collidepoint(pygame.mouse.get_pos()):
                     decision = 1
-
                 if protest_text_rect.collidepoint(pygame.mouse.get_pos()):
                     decision = 2
                 if stay_text_rect.collidepoint(pygame.mouse.get_pos()):
                     decision = 3
                 if hospital_text_rect.collidepoint(pygame.mouse.get_pos()):
                     decision = 4
+            elif not pygame.mouse.get_pressed()[0]:
+                mouse_clicked = False  # Reset the flag when the mouse button is released
 
         if decision == 1:
             player.goes_to_work()
@@ -158,8 +165,6 @@ while True:
 
         if not player.in_hospital:
             player.money -= player.cost_of_living
-
-        game_stat = Game_state.AFTER_DECISION
 
     elif game_stat == Game_state.AFTER_DECISION:
         pass
