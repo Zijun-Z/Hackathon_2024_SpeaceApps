@@ -50,7 +50,16 @@ while True:
         else:
             display_surface.blit(backgrounds[b], (0, 0))
 
-        display_surface.blit(player_displayed, (screen_width*0.75, 200))
+        if player.health < 50:
+            player_displayed = sick_fatal_good
+        elif player.health < 100:
+            player_displayed = sick_medium_good
+        elif player.health < 150:
+            player_displayed = sick_light_good
+        else:
+            player_displayed = healthy_good
+
+        display_surface.blit(player_displayed, (screen_width * 0.75, 200))
 
         if game.pollution > 30:
             pollution_level = Pollution.HIGH

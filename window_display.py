@@ -49,8 +49,8 @@ backgrounds = [pygame.image.load("images/1.png").convert_alpha(),
 
 titleCard = pygame.image.load("images/title_card.png").convert_alpha()
 deathScreen = pygame.image.load("images/game_over.png").convert_alpha()
-player_healthy = pygame.image.load("images/worker_healthy.png").convert_alpha()
 
+player_healthy = pygame.image.load("images/worker_healthy.png").convert_alpha()
 healthy_good = pygame.transform.scale(player_healthy, (400, 520))
 
 player_sick_light = pygame.image.load("images/worker_sick_light.png").convert_alpha()
