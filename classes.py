@@ -16,7 +16,7 @@ class Game:
 
 class Player:
 
-    def __init__(self, health=2000, money=4000):
+    def __init__(self, health=800, money=4000):
         self.health = health
         self.money = money
 
@@ -29,7 +29,7 @@ class Player:
         self.did_protest = False
 
     def stays_home(self):
-        self.health += 100
+        self.health += 10
         remove = set()
 
         for illness in self.illnesses:
@@ -48,7 +48,7 @@ class Player:
 
     def goes_to_hospital(self):
         self.in_hospital = True
-        self.health += 600
+        self.health += 60
         self.money -= (2 * self.wage)
         remove = set()
 

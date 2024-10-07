@@ -61,11 +61,11 @@ while True:
 
         display_surface.blit(player_money_txt, player_money_rect)
 
-        if player.health < 500:
+        if player.health < 200:
             player_displayed = sick_fatal_good
-        elif player.health < 1000:
+        elif player.health < 400:
             player_displayed = sick_medium_good
-        elif player.health < 1500:
+        elif player.health < 450:
             player_displayed = sick_light_good
         else:
             player_displayed = healthy_good
