@@ -9,7 +9,7 @@ game = Game()
 pollution_level = 0
 player = Player()
 
-pollution_increase = 1
+pollution_increase = 2
 
 play_game = True
 
@@ -199,6 +199,7 @@ while True:
             game.government_is_aware = True
             game.government_did_aware = True
             pollution_increase -= 1
+            player.protests_attended =0
             game.government_is_aware = False
 
         game.pollution += pollution_increase
