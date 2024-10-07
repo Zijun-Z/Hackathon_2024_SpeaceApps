@@ -173,24 +173,15 @@ while True:
             if pygame.mouse.get_pressed()[0] and not mouse_clicked:
                 mouse_clicked = True  # Set the flag when the mouse is clicked
                 if work_text_rect.collidepoint(pygame.mouse.get_pos()):
-                    decision = 1
+                    player.goes_to_work()
                 if protest_text_rect.collidepoint(pygame.mouse.get_pos()):
-                    decision = 2
+                    player.goes_to_protest()
                 if stay_text_rect.collidepoint(pygame.mouse.get_pos()):
-                    decision = 3
+                    player.stays_home()
                 if hospital_text_rect.collidepoint(pygame.mouse.get_pos()):
-                    decision = 4
+                    player.goes_to_hospital()
             elif not pygame.mouse.get_pressed()[0]:
                 mouse_clicked = False  # Reset the flag when the mouse button is released
-
-        if decision == 1:
-            player.goes_to_work()
-        elif decision == 2:
-            player.goes_to_protest()
-        elif decision == 3:
-            player.stays_home()
-        else:
-            player.goes_to_hospital()
 
         game.pollution += pollution_increase
         if b < 18:
@@ -198,7 +189,6 @@ while True:
 
         if not player.in_hospital:
             player.money -= player.cost_of_living
-
 
 
 
