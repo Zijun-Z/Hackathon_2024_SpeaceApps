@@ -190,10 +190,6 @@ while True:
         if not player.in_hospital:
             player.money -= player.cost_of_living
 
-
-
-
-
     elif game_stat == Game_state.AFTER_DECISION:
         pass
 
