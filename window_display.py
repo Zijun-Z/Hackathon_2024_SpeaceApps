@@ -96,7 +96,7 @@ while True:
             display_surface.blit(backgrounds[b], (0, 0))
 
         # polution level up:
-        if b < 18:
+        if b < 19:
             b += 1
 
     if game_stat == Game_state.DECISION:
