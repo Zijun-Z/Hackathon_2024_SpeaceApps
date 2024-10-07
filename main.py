@@ -9,7 +9,7 @@ game = Game()
 pollution_level = 0
 player = Player()
 
-pollution_increase = 3
+pollution_increase = 1.66
 
 play_game = True
 
@@ -170,6 +170,8 @@ while True:
             player.goes_to_hospital()
 
         game.pollution += pollution_increase
+        if b < 18:
+            b += 1
 
         if not player.in_hospital:
             player.money -= player.cost_of_living
