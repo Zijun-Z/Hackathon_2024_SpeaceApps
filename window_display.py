@@ -2,7 +2,37 @@ import pygame
 import random
 from newspaper_text import *
 from classes import *
+import os
 
+
+title_card = True
+b = 0
+death_screen = False
+backgrounds = [pygame.image.load("1.png").convert_alpha(),
+              pygame.image.load("2.png").convert_alpha(),
+              pygame.image.load("3.png").convert_alpha(),
+              pygame.image.load("4.png").convert_alpha(),
+              pygame.image.load("5.png").convert_alpha(),
+              pygame.image.load("6.png").convert_alpha(),
+              pygame.image.load("7.png").convert_alpha(),
+              pygame.image.load("8.png").convert_alpha(),
+              pygame.image.load("9.png").convert_alpha(),
+              pygame.image.load("10.png").convert_alpha(),
+              pygame.image.load("11.png").convert_alpha(),
+              pygame.image.load("12.png").convert_alpha(),
+              pygame.image.load("13.png").convert_alpha(),
+              pygame.image.load("14.png").convert_alpha(),
+              pygame.image.load("15.png").convert_alpha(),
+              pygame.image.load("16.png").convert_alpha(),
+              pygame.image.load("17.png").convert_alpha(),
+              pygame.image.load("18.png").convert_alpha(),
+              pygame.image.load("19.png").convert_alpha(),
+              pygame.image.load("20.png").convert_alpha(),]
+titleCard = pygame.image.load("title_card.png").convert_alpha()
+deathScreen = pygame.image.load("game_over.png").convert_alpha()
+
+
+print(os.getcwd())
 player = Player()
 game = Game()
 game_stat = Game_state
@@ -42,7 +72,7 @@ textRect.center = (screen_width // 2, screen_height // 4)
 
 display_text = False
 
-"""
+
 while True:
     # completely fill the surface object
     # with white color
@@ -63,7 +93,7 @@ while True:
 
         if pygame.mouse.get_pressed()[0] and textRect.collidepoint(pygame.mouse.get_pos()):
             display_text = not display_text
-            handle_mouse_click()
+
 
         if display_text:
             paragraph = 'Hello\nWorld\nThis is Pygame'
@@ -86,4 +116,3 @@ while True:
         # Draws the surface object to the screen.
 
         pygame.display.update()
-"""
