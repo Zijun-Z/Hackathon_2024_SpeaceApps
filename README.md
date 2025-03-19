@@ -1,3 +1,5 @@
+Entry for NASA 2024 SpaceApps challenge
+
 Game's instructions:
 
 Welcome to Metropolis city, a bustling industrial capital!
